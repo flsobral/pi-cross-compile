@@ -12,7 +12,7 @@ RUN git clone --progress --verbose https://github.com/raspberrypi/tools.git --de
 
 RUN git clone https://github.com/WiringPi/WiringPi.git
 #git://git.drogon.net/wiringPi
-RUN cd wiringPi && ./build
+RUN cd WiringPi && ./build
 
 ENV BUILD_FOLDER /build
 
