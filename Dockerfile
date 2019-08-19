@@ -17,7 +17,7 @@ RUN apt-get install -y sudo
 
 RUN cd WiringPi && ./build
 
-RUN cd wiringPi && sudo make install
+RUN cd /WiringPi/wiringPi && sudo make install
 
 ENV BUILD_FOLDER /build
 
