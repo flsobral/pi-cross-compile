@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y git && apt-get install -y build-essenti
 
 RUN git clone --progress --verbose https://github.com/raspberrypi/tools.git --depth=1 pitools
 
+RUN git clone git://git.drogon.net/wiringPi
+RUN cd wiringPi && ./build
 
 ENV BUILD_FOLDER /build
 
