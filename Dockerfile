@@ -15,6 +15,10 @@ RUN export PATH="${PWD}/depot_tools:${PATH}"
 
 RUN apt-get install -y python
 
+RUN apt-get install -y ninja-build
+
+RUN ninja
+
 RUN git clone https://skia.googlesource.com/skia.git
 # or
 # fetch skia
