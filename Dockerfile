@@ -10,14 +10,29 @@ RUN apt-get update && apt-get install -y git && apt-get install -y build-essenti
 
 RUN git clone --progress --verbose https://github.com/raspberrypi/tools.git --depth=1 pitools
 
-RUN git clone https://github.com/WiringPi/WiringPi.git
+RUN git clone 'https://chromium.googlesource.com/chromium/tools/depot_tools.git'
+RUN export PATH="${PWD}/depot_tools:${PATH}"
+
+RUN git clone https://skia.googlesource.com/skia.git
+# or
+# fetch skia
+RUN cd skia
+RUN git fetch origin chrome/m71
+RUN git checkout chrome/m71
+RUN python tools/git-sync-deps
+
+RUN bin/gn gen out/arm64  --args='is_official_build=true skia_use_expat=false skia_use_libjpeg_turbo=false skia_use_libpng=true skia_use_libwebp=false skia_use_zlib=false'
+
+RUN ninja -c out/arm64
+
+#RUN git clone https://github.com/WiringPi/WiringPi.git
 #git://git.drogon.net/wiringPi
 
-RUN apt-get install -y sudo
+#RUN apt-get install -y sudo
 
-RUN cd WiringPi && ./build
+#RUN cd WiringPi && ./build
 
-RUN cd /WiringPi/wiringPi && sudo make install
+#RUN cd /WiringPi/wiringPi && sudo make install
 
 ENV BUILD_FOLDER /build
 
