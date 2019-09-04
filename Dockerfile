@@ -13,11 +13,7 @@ RUN git clone --progress --verbose https://github.com/raspberrypi/tools.git --de
 RUN git clone 'https://chromium.googlesource.com/chromium/tools/depot_tools.git'
 RUN export PATH="${PWD}/depot_tools:${PATH}"
 
-RUN apt-get install -y python
-
-RUN apt-get install -y ninja-build
-
-RUN ninja
+RUN apt-get install -y python && apt-get install -y ninja-build
 
 RUN git clone https://skia.googlesource.com/skia.git
 # or
