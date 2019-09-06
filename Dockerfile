@@ -29,7 +29,7 @@ RUN cd skia && bin/gn gen out/arm64  --args='is_official_build=true skia_use_exp
 
 RUN apt-get install -y libfontconfig1-dev
 
-RUN apt-get install -y libmesa-dev
+RUN apt-get install -y mesa-common-dev
 
 RUN cd skia && ../ninja-1.7.2/./ninja -C out/arm64
 
