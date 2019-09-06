@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y git && apt-get install -y build-essenti
 RUN git clone --progress --verbose https://github.com/raspberrypi/tools.git --depth=1 pitools
 
 RUN git clone 'https://chromium.googlesource.com/chromium/tools/depot_tools.git'
+
 RUN export PATH="${PWD}/depot_tools:${PATH}"
 
 RUN apt-get install -y python
