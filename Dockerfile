@@ -13,7 +13,9 @@ RUN git clone --progress --verbose https://github.com/raspberrypi/tools.git --de
 RUN git clone 'https://chromium.googlesource.com/chromium/tools/depot_tools.git'
 RUN export PATH="${PWD}/depot_tools:${PATH}"
 
-RUN apt-get install -y python && apt-get install -y ninja-build
+RUN apt-get install -y python
+
+RUN wget https://github.com/ninja-build/ninja/archive/v1.7.2.tar.gz -O ninja-1.7.2.tar.gz && tar -czvf ninja-1.7.2.tar.gz ninja-1.7.2/ && cd ninja-1.7.2 && ./configure.py --bootstrap && ./configure.py && ./ninja ninja_test && ./ninja_test --gtest_filter=-SubprocessTest.SetWithLots
 
 RUN git clone https://skia.googlesource.com/skia.git
 # or
