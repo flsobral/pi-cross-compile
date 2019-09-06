@@ -27,7 +27,7 @@ RUN cd skia && git fetch origin chrome/m71 && git checkout chrome/m71 && python 
 
 RUN cd skia && bin/gn gen out/arm64  --args='is_official_build=true skia_use_expat=false skia_use_libjpeg_turbo=false skia_use_libpng=true skia_use_libwebp=false skia_use_zlib=false' 
 
-RUN apt-get install libfontconfig1-dev
+RUN apt-get install -y libfontconfig1-dev
 
 RUN cd skia && ../ninja-1.7.2/./ninja -C out/arm64
 
