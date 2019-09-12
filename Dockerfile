@@ -31,6 +31,8 @@ RUN cd skia && bin/gn gen out/arm64  --args='target_cpu="armv7" is_official_buil
 
 RUN cd skia && ../ninja-1.7.2/./ninja -C out/arm64
 
+RUN cd skia/out/arm64 && ls
+
 #RUN git clone https://github.com/WiringPi/WiringPi.git
 #git://git.drogon.net/wiringPi
 
