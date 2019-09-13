@@ -44,21 +44,20 @@ RUN git clone --progress --verbose https://github.com/raspberrypi/tools.git --de
 
 
 ####################### COMPILING SKIA FOR RASPBERRY ######################## 
-RUN sudo apt-get install debootstrap qemu-user-static schroot
+RUN apt-get install debootstrap qemu-user-static schroot
 
 
-RUN sudo apt-get install g++-arm-linux-gnueabihf
-RUN sudo apt-get install libglib2.0-dev
+RUN apt-get install g++-arm-linux-gnueabihf
+RUN apt-get install libglib2.0-dev
 
 # Installing clang-3.8
-RUN sudo echo "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.8 main" >> /etc/apt/sources.list
+RUN echo "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.8 main" >> /etc/apt/sources.list
 RUN wget -qO - https://raw.githubusercontent.com/yarnpkg/releases/gh-pages/debian/pubkey.gpg | sudo apt-key add -
-RUN sudo apt-get update
-RUN sudo apt-get install clang-3.8	
+RUN apt-get update
+RUN apt-get install clang-3.8	
 
 RUN git clone https://github.com/terwoord/skiasharp-raspberry.git
-RUN cd skiasharp-raspberry.git
-RUN ./build.sh
+RUN cd skiasharp-raspberry.git && ./build.sh
 
 ##############################################################################
 ENV BUILD_FOLDER /build
