@@ -37,10 +37,7 @@ RUN cd skia && bin/gn gen out/arm64  --args='\
   skia_use_libwebp=false \
   skia_use_zlib=false \
         extra_cflags = [ \
-        "-g", \
-        "-target", "armv7a-linux", \
-        "-mfloat-abi=hard", \
-        "-mfpu=neon" \
+        "-g" \
       ] \
   ' 
 
