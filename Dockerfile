@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y libfontconfig1-dev && apt-get install -
 
 RUN cd skia && bin/gn gen out/arm64  --args='\
   target_cpu="arm" \
-  cc="/pitools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-gcc" \
+  cc="/pitools/arm-bcm2708/arm-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc" \
   is_official_build=true \
   skia_use_expat=false \
   skia_use_libjpeg_turbo=false \
