@@ -28,21 +28,20 @@ RUN cd skia && git fetch origin chrome/m71 && git checkout chrome/m71 && python 
 RUN apt-get update && apt-get install -y libfontconfig1-dev && apt-get install -y mesa-common-dev
 
 RUN cd skia && bin/gn gen out/arm64  --args='\
-  target_cpu="arm" 
-  cc="/pitools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-gcc" 
-  is_official_build=true 
-  skia_use_expat=false 
-  skia_use_libjpeg_turbo=false 
-  skia_use_libpng=true 
-  skia_use_libwebp=false 
-  skia_use_zlib=false
-  
-        extra_cflags = [
-        "-g",
-        "-target", "armv7a-linux",
-        "-mfloat-abi=hard",
-        "-mfpu=neon"
-      ]
+  target_cpu="arm" \
+  cc="/pitools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-gcc" \
+  is_official_build=true \
+  skia_use_expat=false \
+  skia_use_libjpeg_turbo=false \
+  skia_use_libpng=true \
+  skia_use_libwebp=false \
+  skia_use_zlib=false \
+        extra_cflags = [ \
+        "-g", \
+        "-target", "armv7a-linux", \
+        "-mfloat-abi=hard", \
+        "-mfpu=neon" \
+      ] \
   ' 
 
 RUN cd skia && ../ninja-1.7.2/./ninja -C out/arm64
