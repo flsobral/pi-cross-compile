@@ -10,28 +10,28 @@ RUN apt-get update && apt-get install -y git && apt-get install -y build-essenti
 
 RUN git clone --progress --verbose https://github.com/raspberrypi/tools.git --depth=1 pitools
 
-RUN git clone 'https://chromium.googlesource.com/chromium/tools/depot_tools.git'
+#RUN git clone 'https://chromium.googlesource.com/chromium/tools/depot_tools.git'
 
-RUN export PATH="${PWD}/depot_tools:${PATH}"
+#RUN export PATH="${PWD}/depot_tools:${PATH}"
 
-RUN apt-get install -y python
+#RUN apt-get install -y python
 
-RUN apt-get install wget
+#RUN apt-get install wget
 
-RUN wget https://github.com/ninja-build/ninja/archive/v1.7.2.tar.gz -O - | tar -xz && cd ninja-1.7.2 && ./configure.py --bootstrap && ./configure.py && ./ninja ninja_test && ./ninja_test --gtest_filter=-SubprocessTest.SetWithLots
+#RUN wget https://github.com/ninja-build/ninja/archive/v1.7.2.tar.gz -O - | tar -xz && cd ninja-1.7.2 && ./configure.py --bootstrap && ./configure.py && ./ninja ninja_test && ./ninja_test --gtest_filter=-SubprocessTest.SetWithLots
 
-RUN git clone https://skia.googlesource.com/skia.git
+#RUN git clone https://skia.googlesource.com/skia.git
 # or
 # fetch skia
-RUN cd skia && git fetch origin chrome/m71 && git checkout chrome/m71 && python tools/git-sync-deps 
+#RUN cd skia && git fetch origin chrome/m71 && git checkout chrome/m71 && python tools/git-sync-deps 
 
-RUN apt-get update && apt-get install -y libfontconfig1-dev && apt-get install -y mesa-common-dev
+#RUN apt-get update && apt-get install -y libfontconfig1-dev && apt-get install -y mesa-common-dev
 
-RUN cd skia && bin/gn gen out/arm64  --args='cc = "arm-linux-gnueabihf-gcc" cxx="arm-linux-gnueabihf-g++" is_official_build=true skia_use_expat=false skia_use_libjpeg_turbo=false skia_use_libpng=true skia_use_libwebp=false skia_use_zlib=false' 
+#RUN cd skia && bin/gn gen out/arm64  --args='cc = "arm-linux-gnueabihf-gcc" cxx="arm-linux-gnueabihf-g++" is_official_build=true skia_use_expat=false skia_use_libjpeg_turbo=false skia_use_libpng=true skia_use_libwebp=false skia_use_zlib=false' 
 
-RUN cd skia && ../ninja-1.7.2/./ninja -C out/arm64
+#RUN cd skia && ../ninja-1.7.2/./ninja -C out/arm64
 
-RUN cd skia/out/arm64 && ls $$ objdump -f libskia.a
+#RUN cd skia/out/arm64 && ls $$ objdump -f libskia.a
 
 #RUN git clone https://github.com/WiringPi/WiringPi.git
 #git://git.drogon.net/wiringPi
