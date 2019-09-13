@@ -27,7 +27,7 @@ RUN cd skia && git fetch origin chrome/m71 && git checkout chrome/m71 && python 
 
 RUN apt-get update && apt-get install -y libfontconfig1-dev && apt-get install -y mesa-common-dev
 
-RUN cd skia && bin/gn gen out/arm64  --args='
+RUN cd skia && bin/gn gen out/arm64  --args='\
   target_cpu="arm" 
   cc="/pitools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-gcc" 
   is_official_build=true 
