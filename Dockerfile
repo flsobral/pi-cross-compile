@@ -31,7 +31,7 @@ RUN cd skia && bin/gn gen out/arm64  --args='cc = "/pitools/arm-bcm2708/gcc-lina
 
 RUN cd skia && ../ninja-1.7.2/./ninja -C out/arm64
 
-RUN cd skia/out/arm64 && ls $$ objdump -f libskia.a
+#RUN cd skia/out/arm64 && ls $$ objdump -f libskia.a
 
 #RUN git clone https://github.com/WiringPi/WiringPi.git
 #git://git.drogon.net/wiringPi
