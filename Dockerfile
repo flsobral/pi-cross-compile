@@ -53,7 +53,7 @@ RUN apt-get install -y libglib2.0-dev
 
 # Installing clang-3.8
 RUN echo "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.8 main" >> /etc/apt/sources.list
-RUN wget -qO - https://raw.githubusercontent.com/yarnpkg/releases/gh-pages/debian/pubkey.gpg | sudo apt-key add -
+RUN wget -qO - https://raw.githubusercontent.com/yarnpkg/releases/gh-pages/debian/pubkey.gpg | apt-key add -
 RUN apt-get update
 RUN apt-get install -y clang-3.8	
 
