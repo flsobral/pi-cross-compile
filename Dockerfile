@@ -58,7 +58,7 @@ RUN apt-get update
 RUN apt-get install -y clang-3.8	
 
 RUN git clone https://github.com/terwoord/skiasharp-raspberry.git
-RUN cd skiasharp-raspberry.git && ./build.sh
+RUN cd skiasharp-raspberry && ./build.sh
 
 ##############################################################################
 ENV BUILD_FOLDER /build
