@@ -48,7 +48,7 @@ RUN apt-get install -y debootstrap qemu-user-static schroot
 
 
 RUN apt-get install -y g++-arm-linux-gnueabihf
-#RUN apt-get install -y python
+RUN apt-get install -y python
 RUN apt-get install -y libglib2.0-dev
 
 # Installing clang-3.8
