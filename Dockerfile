@@ -44,12 +44,14 @@ RUN git clone --progress --verbose https://github.com/raspberrypi/tools.git --de
 
 
 ####################### COMPILING SKIA FOR RASPBERRY ######################## 
-RUN apt-get install -y debootstrap qemu-user-static schroot
+#RUN apt-get install -y debootstrap qemu-user-static schroot
 
 
-RUN apt-get install -y g++-arm-linux-gnueabihf
-RUN apt-get install -y python
-RUN apt-get install -y libglib2.0-dev
+#RUN apt-get install -y g++-arm-linux-gnueabihf
+#RUN apt-get install -y python
+#RUN apt-get install -y libglib2.0-dev
+
+RUN apt-get install -y debootstrap qemu-user-static schroot g++-arm-linux-gnueabihf libglib2.0-dev
 
 # Installing clang-3.8
 RUN echo "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.8 main" >> /etc/apt/sources.list
