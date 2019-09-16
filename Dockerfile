@@ -50,6 +50,9 @@ RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia 
     skia_enable_gpu=true \
     extra_cflags=[ "-DSKIA_C_DLL" ] \
     linux_soname_version="68.0.0"'
+    
+# compile
+RUN cd skia && ../depot_tools/ninja 'SkiaSharp' -C 'out/linux/x64'
 
 ##############################################################################
 ENV BUILD_FOLDER /build
