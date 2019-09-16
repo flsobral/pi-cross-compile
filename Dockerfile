@@ -9,7 +9,7 @@ LABEL com.mitchallen.pi-cross-compile="{\"Description\":\"Cross Compile for Rasp
 RUN apt-get update && apt-get install -y git && apt-get install -y build-essential
 
 # check out skia and depot_tools as per https://github.com/mono/SkiaSharp/wiki/Building-on-Linux
-RUN git clone git clone https://github.com/mono/skia.git -b v1.68.0-preview28
+RUN git clone https://github.com/mono/skia.git -b v1.68.0-preview28
 RUN git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
 
 # check out RPI compilers as per https://github.com/mono/SkiaSharp/issues/633#issuecomment-420025558 and add to path
