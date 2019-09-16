@@ -56,7 +56,7 @@ RUN apt-get install -y debootstrap qemu-user-static schroot g++-arm-linux-gnueab
 # Installing clang-3.8
 RUN echo "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.8 main" >> /etc/apt/sources.list
 #RUN wget -qO - https://raw.githubusercontent.com/yarnpkg/releases/gh-pages/debian/pubkey.gpg | apt-key add -
-RUN wget -qO - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
+RUN wget -qO - https://apt.llvm.org/llvm-snapshot.gpg.key| apt-key add -
 RUN apt-get update
 RUN apt-get install -y clang-3.8	
 
