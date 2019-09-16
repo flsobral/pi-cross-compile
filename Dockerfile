@@ -52,7 +52,7 @@ RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia 
     linux_soname_version="68.0.0"'
     
 # compile
-RUN cd skia && ../depot_tools/ninja 'SkiaSharp' -C 'out/linux/x64'
+RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && ../depot_tools/ninja 'SkiaSharp' -C 'out/linux/x64'
 
 ##############################################################################
 ENV BUILD_FOLDER /build
