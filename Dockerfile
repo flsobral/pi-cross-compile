@@ -31,6 +31,8 @@ RUN git clone https://github.com/raspberrypi/tools.git --depth=1 pitools
 # change to skia directory - all work done here from now on
 #RUN cd skia
 
+RUN apt-get install -y python
+
 # run git-sync-deps script (as per normal instructions)
 RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && python tools/git-sync-deps
 
