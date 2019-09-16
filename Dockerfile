@@ -24,6 +24,9 @@ RUN apt-get update && apt-get install -y git && apt-get install -y build-essenti
 #RUN apt -q -y --force-yes install gcc-multilib g++-multilib
 
 RUN git clone https://github.com/terwoord/skiasharp-raspberry.git
+
+RUN apt-get install -y python
+
 RUN cd skiasharp-raspberry && ./build.sh
 
 ##############################################################################
