@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:16.04
 
 MAINTAINER Mitch Allen "docker@mitchallen.com"
 
@@ -59,6 +59,7 @@ RUN echo "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.8 main" >> /et
 RUN wget -qO - https://apt.llvm.org/llvm-snapshot.gpg.key| apt-key add -
 RUN apt-get update
 RUN apt-get install -y clang-3.8	
+RUN apt -q -y --force-yes install gcc-multilib g++-multilib
 
 RUN git clone https://github.com/terwoord/skiasharp-raspberry.git
 RUN cd skiasharp-raspberry && ./build.sh
