@@ -6,26 +6,48 @@ MAINTAINER Mitch Allen "docker@mitchallen.com"
 
 LABEL com.mitchallen.pi-cross-compile="{\"Description\":\"Cross Compile for Raspberry Pi\",\"Usage\":\"docker run -it -v ~/myprojects/mybuild:/build mitchallen/pi-cross-compile\",\"Version\":\"0.1.0\"}"
 
-RUN apt-get update && apt-get install -y git && apt-get install -y build-essential && apt-get install -y sudo debootstrap qemu-user-static schroot
+RUN apt-get update && apt-get install -y git && apt-get install -y build-essential
+
+# check out skia and depot_tools as per https://github.com/mono/SkiaSharp/wiki/Building-on-Linux
+RUN git clone git clone https://github.com/mono/skia.git -b v1.68.0-preview28
+RUN git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+
+# check out RPI compilers as per https://github.com/mono/SkiaSharp/issues/633#issuecomment-420025558 and add to path
+RUN git clone https://github.com/raspberrypi/tools.git--depth=1 pitools
 
 
-#RUN apt-get install -y g++-arm-linux-gnueabihf
-RUN apt-get install -y python
-#RUN apt-get install -y libglib2.0-dev
+# installed libfontconfig on my RPI and then copied
+# fcfreetype.h,  fcprivate.h and  fontconfig.h
+# to
+# <path-to-rpi-checkout>/tools/arm-bcm2708/arm-linux-gnueabihf/arm-linux-gnueabihf/include/fontconfig
 
-#RUN apt-get install -y debootstrap qemu-user-static schroot g++-arm-linux-gnueabihf libglib2.0-dev
+# copied
+# libfontconfig.a  libfontconfig.so  libfontconfig.so.1  libfontconfig.so.1.8.0
+# to
+# <path-to-rpi-checkout>/tools/arm-bcm2708/arm-linux-gnueabihf/arm-linux-gnueabihf/lib
 
-# Installing clang-3.8
-RUN echo "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.8 main" >> /etc/apt/sources.list
-#RUN wget -qO - https://raw.githubusercontent.com/yarnpkg/releases/gh-pages/debian/pubkey.gpg | apt-key add -
-RUN wget -qO - https://apt.llvm.org/llvm-snapshot.gpg.key| apt-key add -
-RUN apt-get update
-RUN apt-get install -y clang-3.8	
-#RUN apt -q -y --force-yes install gcc-multilib g++-multilib
+# would it be possible to avoid the copy steps by installing libfontconfig:armhf directly on the build machine? I tried but couldn't get it to install
 
-RUN git clone https://github.com/terwoord/skiasharp-raspberry.git
+# change to skia directory - all work done here from now on
+#RUN cd skia
 
-RUN cd skiasharp-raspberry && ./build.sh
+# run git-sync-deps script (as per normal instructions)
+RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && python tools/git-sync-deps
+
+# modified command line to use ARM cross-compilers from the RPI tools
+RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && \
+./bin/gn gen 'out/linux/x64' --args=' \
+    cc = "arm-linux-gnueabihf-gcc" \
+    cxx = "arm-linux-gnueabihf-g++" \
+    is_official_build=true skia_enable_tools=false \
+    target_os="linux" target_cpu="arm" \
+    skia_use_icu=false skia_use_sfntly=false skia_use_piex=true \
+    skia_use_system_expat=false skia_use_system_freetype2=false  \
+    skia_use_system_libjpeg_turbo=false skia_use_system_libpng=false \
+    skia_use_system_libwebp=false skia_use_system_zlib=false \
+    skia_enable_gpu=true \
+    extra_cflags=[ "-DSKIA_C_DLL" ] \
+    linux_soname_version="68.0.0"'
 
 ##############################################################################
 ENV BUILD_FOLDER /build
