@@ -13,7 +13,7 @@ RUN git clone https://github.com/mono/skia.git -b v1.68.0-preview28
 RUN git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
 
 # check out RPI compilers as per https://github.com/mono/SkiaSharp/issues/633#issuecomment-420025558 and add to path
-RUN git clone https://github.com/raspberrypi/tools.git--depth=1 pitools
+RUN git clone https://github.com/raspberrypi/tools.git --depth=1 pitools
 
 
 # installed libfontconfig on my RPI and then copied
