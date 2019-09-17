@@ -41,7 +41,8 @@ RUN apt-get install -y curl
 RUN set -x; \
     echo deb http://emdebian.org/tools/debian/ jessie main > /etc/apt/sources.list.d/emdebian.list \
  && curl -sL http://emdebian.org/tools/debian/emdebian-toolchain-archive.key | apt-key add - \
- && dpkg --add-architecture armhf && rm -rf /var/lib/apt/lists/* && echo $(apt update) && echo $(apt-get update) && apt-get install -y -m libfontconfig1-dev build-essential crossbuild-essential-armhf
+ && apt-key update \
+ && dpkg --add-architecture armhf && echo $(apt update) && echo $(apt-get update) && apt-get install -y -m libfontconfig-dev build-essential crossbuild-essential-armhf
 
 # modified command line to use ARM cross-compilers from the RPI tools
 RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && \
