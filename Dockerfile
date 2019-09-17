@@ -36,6 +36,8 @@ RUN apt-get install -y python
 # run git-sync-deps script (as per normal instructions)
 RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && python tools/git-sync-deps
 
+RUN apt-get install -y curl
+
 RUN set -x; \
     echo deb http://emdebian.org/tools/debian/ jessie main > /etc/apt/sources.list.d/emdebian.list \
  && curl -sL http://emdebian.org/tools/debian/emdebian-toolchain-archive.key | apt-key add - \
