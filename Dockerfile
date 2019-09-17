@@ -44,6 +44,9 @@ RUN set -x; \
  && apt-key update \
  && dpkg --add-architecture armhf && echo $(apt update) && echo $(apt-get update) && apt-get install -y -m libfontconfig-dev build-essential crossbuild-essential-armhf
 
+
+skia_use_expat=false skia_use_libjpeg_turbo=false skia_use_libpng=false skia_use_libwebp=false skia_use_zlib=false
+
 # modified command line to use ARM cross-compilers from the RPI tools
 RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && \
 ./bin/gn gen 'out/linux/x64' --args=' \
@@ -56,6 +59,7 @@ RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia 
     skia_use_system_libjpeg_turbo=false skia_use_system_libpng=false \
     skia_use_system_libwebp=false skia_use_system_zlib=false \
     skia_enable_gpu=true \
+    skia_use_expat=false skia_use_libjpeg_turbo=false skia_use_libpng=false skia_use_libwebp=false skia_use_zlib=false \
     extra_cflags=[ "-DSKIA_C_DLL", "-I/usr/include/" ] \
     linux_soname_version="68.0.0"'
 
