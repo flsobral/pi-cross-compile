@@ -51,8 +51,7 @@ RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia 
     extra_cflags=[ "-DSKIA_C_DLL" ] \
     linux_soname_version="68.0.0"'
     
-
-RUN apt-get install -y libfontconfig1-dev
+RUN dpkg --add-architecture armhf && apt-get install -y libfontconfig1-dev
 
 # compile
 RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && ../depot_tools/ninja 'SkiaSharp' -C 'out/linux/x64'
