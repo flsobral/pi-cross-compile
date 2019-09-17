@@ -36,6 +36,8 @@ RUN apt-get install -y python
 # run git-sync-deps script (as per normal instructions)
 RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && python tools/git-sync-deps
 
+RUN dpkg --add-architecture armhf && apt-get install -y libfontconfig1-dev
+
 # modified command line to use ARM cross-compilers from the RPI tools
 RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && \
 ./bin/gn gen 'out/linux/x64' --args=' \
@@ -48,13 +50,11 @@ RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia 
     skia_use_system_libjpeg_turbo=false skia_use_system_libpng=false \
     skia_use_system_libwebp=false skia_use_system_zlib=false \
     skia_enable_gpu=true \
-    extra_cflags=[ "-DSKIA_C_DLL" ] \
+    extra_cflags=[ "-DSKIA_C_DLL", "-I/usr/include/" ] \
     linux_soname_version="68.0.0"'
-    
-RUN dpkg --add-architecture armhf && apt-get install -y libfontconfig1-dev
 
 # compile
-#RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && ../depot_tools/ninja 'SkiaSharp' -C 'out/linux/x64'
+RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && ../depot_tools/ninja 'SkiaSharp' -C 'out/linux/x64'
 
 ##############################################################################
 ENV BUILD_FOLDER /build
