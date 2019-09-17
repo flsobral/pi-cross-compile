@@ -54,7 +54,7 @@ RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia 
 RUN dpkg --add-architecture armhf && apt-get install -y libfontconfig1-dev
 
 # compile
-RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && ../depot_tools/ninja 'SkiaSharp' -C 'out/linux/x64'
+#RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && ../depot_tools/ninja 'SkiaSharp' -C 'out/linux/x64'
 
 ##############################################################################
 ENV BUILD_FOLDER /build
