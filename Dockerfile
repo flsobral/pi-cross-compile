@@ -36,7 +36,7 @@ RUN apt-get install -y python
 # run git-sync-deps script (as per normal instructions)
 RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && python tools/git-sync-deps
 
-RUN dpkg --add-architecture armhf && apt update && apt-get update && apt-get install -y -m libfontconfig1-dev build-essential crossbuild-essential-armhf
+RUN dpkg --add-architecture armhf && rm -rf /var/lib/apt/lists/* && apt update && apt-get update && apt-get install -y -m libfontconfig1-dev build-essential crossbuild-essential-armhf
 
 # modified command line to use ARM cross-compilers from the RPI tools
 RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && \
