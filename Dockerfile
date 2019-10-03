@@ -15,10 +15,10 @@ RUN apt-get install -y bsdtar \
     && cp $(which tar) $(which tar)~ \
     && ln -sf $(which bsdtar) $(which tar)
 
-RUN chmod +x angstrom-glibc-x86_64-armv7at2hf-neon-v2017.12-toolchain.sh && ./angstrom-glibc-x86_64-armv7at2hf-neon-v2017.12-toolchain.sh -y
+#RUN chmod +x angstrom-glibc-x86_64-armv7at2hf-neon-v2017.12-toolchain.sh && ./angstrom-glibc-x86_64-armv7at2hf-neon-v2017.12-toolchain.sh -y
 
 # put back the original tar
-RUN mv $(which tar)~ $(which tar)
+#RUN mv $(which tar)~ $(which tar)
 
 ##############################################################################
 ENV BUILD_FOLDER /build
