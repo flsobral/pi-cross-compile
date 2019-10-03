@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y git && apt-get install -y build-essenti
 
 RUN wget https://developer1.toradex.com/files/toradex-dev/uploads/media/Colibri/Linux/SDKs/2.8/colibri-imx7/angstrom-lxde-image/angstrom-glibc-x86_64-armv7at2hf-neon-v2017.12-toolchain.sh
 
-RUN chmod +x angstrom-glibc-x86_64-armv7at2hf-neon-v2016.12-toolchain.sh 
+#RUN chmod +x angstrom-glibc-x86_64-armv7at2hf-neon-v2016.12-toolchain.sh 
 
 #&& ./angstrom-glibc-x86_64-armv7at2hf-neon-v2016.12-toolchain.sh
 
