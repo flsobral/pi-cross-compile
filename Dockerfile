@@ -6,63 +6,13 @@ MAINTAINER Mitch Allen "docker@mitchallen.com"
 
 LABEL com.mitchallen.pi-cross-compile="{\"Description\":\"Cross Compile for Raspberry Pi\",\"Usage\":\"docker run -it -v ~/myprojects/mybuild:/build mitchallen/pi-cross-compile\",\"Version\":\"0.1.0\"}"
 
-RUN apt-get update && apt-get install -y git && apt-get install -y build-essential
+RUN apt-get update && apt-get install -y git && apt-get install -y build-essential && apt-get install -y wget
 
-# check out skia and depot_tools as per https://github.com/mono/SkiaSharp/wiki/Building-on-Linux
-RUN git clone https://github.com/mono/skia.git -b v1.68.0-preview28
-RUN git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+RUN wget https://developer1.toradex.com/files/toradex-dev/uploads/media/Colibri/Linux/SDKs/2.8/colibri-imx7/angstrom-lxde-image/angstrom-glibc-x86_64-armv7at2hf-neon-v2017.12-toolchain.sh
 
-# check out RPI compilers as per https://github.com/mono/SkiaSharp/issues/633#issuecomment-420025558 and add to path
-RUN git clone https://github.com/raspberrypi/tools.git --depth=1 pitools
+RUN chmod +x angstrom-glibc-x86_64-armv7at2hf-neon-v2016.12-toolchain.sh 
 
-
-# installed libfontconfig on my RPI and then copied
-# fcfreetype.h,  fcprivate.h and  fontconfig.h
-# to
-# <path-to-rpi-checkout>/tools/arm-bcm2708/arm-linux-gnueabihf/arm-linux-gnueabihf/include/fontconfig
-
-# copied
-# libfontconfig.a  libfontconfig.so  libfontconfig.so.1  libfontconfig.so.1.8.0
-# to
-# <path-to-rpi-checkout>/tools/arm-bcm2708/arm-linux-gnueabihf/arm-linux-gnueabihf/lib
-
-# would it be possible to avoid the copy steps by installing libfontconfig:armhf directly on the build machine? I tried but couldn't get it to install
-
-# change to skia directory - all work done here from now on
-#RUN cd skia
-
-RUN apt-get install -y python
-
-# run git-sync-deps script (as per normal instructions)
-RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && python tools/git-sync-deps
-
-RUN apt-get install -y curl
-
-RUN set -x; \
-    echo deb http://emdebian.org/tools/debian/ jessie main > /etc/apt/sources.list.d/emdebian.list \
- && curl -sL http://emdebian.org/tools/debian/emdebian-toolchain-archive.key | apt-key add - \
- && apt-key update \
- && dpkg --add-architecture armhf && echo $(apt update) && echo $(apt-get update) && apt-get install -y -m libfontconfig-dev build-essential crossbuild-essential-armhf
-
-
-# modified command line to use ARM cross-compilers from the RPI tools
-RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && \
-./bin/gn gen 'out/linux/x64' --args=' \
-    cc = "arm-linux-gnueabihf-gcc" \
-    cxx = "arm-linux-gnueabihf-g++" \
-    is_official_build=true skia_enable_tools=false \
-    target_os="linux" target_cpu="arm" \
-    skia_use_icu=false skia_use_sfntly=false skia_use_piex=true \
-    skia_use_system_expat=false skia_use_system_freetype2=false  \
-    skia_use_system_libjpeg_turbo=false skia_use_system_libpng=false \
-    skia_use_system_libwebp=false skia_use_system_zlib=false \
-    skia_enable_gpu=true \
-    skia_use_expat=false skia_use_libjpeg_turbo=false skia_use_libpng=false skia_use_libwebp=false skia_use_zlib=false \
-    extra_cflags=[ "-DSKIA_C_DLL", "-I/usr/include/" ] \
-    linux_soname_version="68.0.0"'
-
-# compile
-RUN export PATH="$PATH:/pitools/arm-bcm2708/arm-linux-gnueabihf/bin" && cd skia && ../depot_tools/ninja 'SkiaSharp' -C 'out/linux/x64'
+#&& ./angstrom-glibc-x86_64-armv7at2hf-neon-v2016.12-toolchain.sh
 
 ##############################################################################
 ENV BUILD_FOLDER /build
